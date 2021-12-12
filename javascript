@@ -101,7 +101,7 @@ tileset.readyPromise
       
       label.text = getareaString(point1, point2);     //Area label, distancelabel here should be changed
       distanceLabel = viewer.entities.add({
-          position: getMidpoint(point1, point2, height),
+          position: getMidpoint(point1, point2, point2GeoPosition.height),
           label: label
       });
 
@@ -157,19 +157,37 @@ tileset.readyPromise
     }
 
     // area calculation
-    function getareaString(point1, point2) {
-      var heights = [point1GeoPosition.height, point2GeoPosition.height];
-      var S = Math.abs( point1.longitude*(point2.latitude - point2GeoPosition.height)+ point2.longitude*(point2GeoPosition.height - point1.latitude) + point1GeoPosition.height*(point1.latitude - point2.latitude) )* 0.5;
+    //function getareaString(point1, point2) {
+      //var heights = [point1GeoPosition.height, point2GeoPosition.height];
+      //var S = Math.abs( point1.longitude*(point2.latitude - point2GeoPosition.height)+ point2.longitude*(point2GeoPosition.height - point1.latitude) + point1GeoPosition.height*(point1.latitude - point2.latitude) )* 0.5;
 
             
-      if (S >= 1000000) {
-          return (S / 1000000).toFixed(1) + '   Square Meter';
-      }
+      //if (S >= 1000000) {
+        //  return (S / 1000000).toFixed(1) + '   Square Meter';
+      //}
       
       //return S + 'square meter';
-      return S.toFixed(1) + '    Square Meter ';
-    }
+      //return S.toFixed(1) + '    Square Meter ';
+    //}
 
+
+
+
+
+
+    function getareaString(point1, point2) {
+      geodesic.setEndPoints(point1.cartographic, point2.cartographic);
+      var horizontalMeters = geodesic.surfaceDistance.toFixed(2);
+      var heights = [point1GeoPosition.height, point2GeoPosition.height];
+      var verticalMeters = Math.max.apply(Math, heights) - Math.min.apply(Math, heights);
+      var S = (horizontalMeters*verticalMeters)*0.5 ;
+    
+      
+      if (S >= 1000000) {
+          return (S / 1000000).toFixed(1) + ' м^2';
+      }
+      return S.toFixed(2) + ' м^2';
+    }
 
 
 
