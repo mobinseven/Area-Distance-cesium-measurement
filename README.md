@@ -6,7 +6,7 @@ At 'My Assets', add data. It will convert into 3D tile.
 Click 'open complete code example'. You can see the code and data.
 
 
-change the asset token, and asset id 
+change the access token, and asset id 
 
 Distance, area, and volume measurement 
 
