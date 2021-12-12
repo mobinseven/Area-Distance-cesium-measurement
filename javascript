@@ -163,11 +163,11 @@ tileset.readyPromise
 
             
       if (S >= 1000000) {
-          return (S / 1000000).toFixed(20) + '   Square Meter';
+          return (S / 1000000).toFixed(1) + '   Square Meter';
       }
       
       //return S + 'square meter';
-      return S.toFixed(20) + '    Square Meter ';
+      return S.toFixed(1) + '    Square Meter ';
     }
 
 
