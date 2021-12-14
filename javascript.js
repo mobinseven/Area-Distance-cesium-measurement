@@ -38,7 +38,7 @@ tileset.readyPromise
       points.removeAll();
       count.innerText = points.length;
       polylines.removeAll();
-      value.innerText = "Select at least 2 points.";
+      value.innerText = "Select 2 points.";
     };
     window.updateValue = function () {
       count.innerText = points.length;
@@ -255,8 +255,8 @@ function getArea(point1, point2) {
   var S =
     Math.abs(
       point1.longitude * (point2.latitude - point2GeoPosition.height) +
-        point2.longitude * (point2GeoPosition.height - point1.latitude) +
-        point1GeoPosition.height * (point1.latitude - point2.latitude)
+      point2.longitude * (point2GeoPosition.height - point1.latitude) +
+      point1GeoPosition.height * (point1.latitude - point2.latitude)
     ) * 0.5;
   return S;
 }
@@ -268,15 +268,17 @@ handler.setInputAction(function (click) {
       var cartesian = viewer.scene.pickPosition(click.position);
 
       if (Cesium.defined(cartesian)) {
-        points.add({
-          position: new Cesium.Cartesian3(
-            cartesian.x,
-            cartesian.y,
-            cartesian.z
-          ),
-          color: LINEPOINTCOLOR,
-        });
-        updateValue();
+        if (points.length < 2) {
+          points.add({
+            position: new Cesium.Cartesian3(
+              cartesian.x,
+              cartesian.y,
+              cartesian.z
+            ),
+            color: LINEPOINTCOLOR,
+          });
+          updateValue();
+        }
       }
     }
   }
