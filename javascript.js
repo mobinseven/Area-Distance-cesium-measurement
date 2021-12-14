@@ -1,6 +1,6 @@
 // Grant CesiumJS access to your ion assets
 Cesium.Ion.defaultAccessToken =
-  ACCESS_TOKEN;
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1N2E2MzgxNC1jNzI4LTRmYzQtODhiOC04MDEzNTExZmUxNTciLCJpZCI6NzYyMzcsImlhdCI6MTYzOTMxODg1MH0.NMhC-I9oSUsFm8gArzIZfhtG3DECKSu2nnAoANGYUV8";
 
 var viewer = new Cesium.Viewer("cesiumContainer");
 
@@ -8,12 +8,13 @@ var scene = viewer.scene;
 var ellipsoid = Cesium.Ellipsoid.WGS84;
 var geodesic = new Cesium.EllipsoidGeodesic();
 const mode = document.forms.modes.elements["mode"];
-
+const att = document.forms.modes.elements["att"];
+const range = document.forms.modes.elements["range"];
 var value, title, count;
 
 var tileset = viewer.scene.primitives.add(
   new Cesium.Cesium3DTileset({
-    url: Cesium.IonResource.fromAssetId(ASSET_ID),
+    url: Cesium.IonResource.fromAssetId(705213),
   })
 );
 
@@ -30,6 +31,7 @@ tileset.readyPromise
     ) {
       tileset.style = new Cesium.Cesium3DTileStyle(extras.ion.defaultStyle);
     }
+    tileset.pointCloudShading.geometricErrorScale = 0.005;
 
     value = document.getElementById("value");
     title = document.getElementById("title");
@@ -41,6 +43,14 @@ tileset.readyPromise
       value.innerText = "Select 2 points.";
     };
     window.updateValue = function () {
+      tileset.pointCloudShading.attenuation = att.checked;
+      if (tileset.pointCloudShading.attenuation) {
+        range.disabled = false;
+        tileset.pointCloudShading.geometricErrorScale = range.value / 1000;
+      }
+      else {
+        range.disabled = true;
+      }
       count.innerText = points.length;
       if (points.length >= 2) {
         polylines.removeAll();

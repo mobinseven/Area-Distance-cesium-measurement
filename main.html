@@ -14,16 +14,22 @@
   <h1>Loading...</h1>
 </div>
 <div id="toolbar">
-  <h4>Mode:</h4>
+  <h4>Options:</h4>
   <form id="modes" onchange="updateValue()">
-    <label><input type="radio" name="mode" value="d" checked />
-      Distance</label>
-    <label><input type="radio" name="mode" value="hd" />
-      Horizontal Distance</label>
-    <label><input type="radio" name="mode" value="vd" />
-      Vertical Distance</label>
-    <label><input type="radio" name="mode" value="a" />
-      Area</label>
+  <label for="mode">Mode:</label>
+    <select id="mode" name="mode" onchange="updateValue()">
+  <option value="d" selected>Distance</option>
+  <option value="hd">Horizontal Distance</option>
+  <option value="vd">Vertical Distance</option>
+  <option value="a">Area</option>
+</select>
+    
+  <label for="att">Attenuation:</label>
+    <input name="att" type="checkbox" checked>
+
+  <label for="range">GeometricErrorScale:</label>
+    <input id="range" name="range" type="range" min="1" max="1000" value="5" class="slider">
+
   </form>
   <h5>Points:<span id="count">0</span></h5>
   <h5 id="title"></h5>
