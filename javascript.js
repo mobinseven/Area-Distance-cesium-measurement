@@ -43,10 +43,10 @@ tileset.readyPromise
       value.innerText = "Select 2 points.";
     };
     window.updateValue = function () {
-      tileset.pointCloudShading.attenuation = att.checked;
-      if (tileset.pointCloudShading.attenuation) {
+      tileset.pointCloudShading.attenuation = att.checked;  
+      if(tileset.pointCloudShading.attenuation) {
         range.disabled = false;
-        tileset.pointCloudShading.geometricErrorScale = range.value / 1000;
+        tileset.pointCloudShading.geometricErrorScale = range.value/1000;
       }
       else {
         range.disabled = true;
@@ -69,7 +69,7 @@ tileset.readyPromise
             }
             break;
           case "hd":
-            title.innerHTML = "Horizontal Distance<br/>(1st and last point):";
+            title.innerHTML = "Horizontal Distance:";
             distance = getHorizontalDistance(
               points.get(0),
               points.get(points.length - 1)
@@ -82,7 +82,7 @@ tileset.readyPromise
             }
             break;
           case "vd":
-            title.innerHTML = "Vertical Distance<br/>(1st and last point):";
+            title.innerHTML = "Vertical Distance:";
             distance = getVerticalDistance(
               points.get(0),
               points.get(points.length - 1)
